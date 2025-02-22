@@ -15,6 +15,7 @@ print(df["Compared to National"].unique())
 print(df["Measure Name"].unique())
 
 df["Denominator"] = pd.to_numeric(df["Denominator"], errors="coerce")
+df = df[df["Denominator"] > 0]
 
 sns.set_theme(style="whitegrid")
 
@@ -36,7 +37,7 @@ plt.ylabel("Score")
 plt.xticks(rotation=45)
 plt.show()
 
-
+df = df[df["Compared to National"].isin(["Better", "No Different", "Worse"])]
 plt.figure(figsize=(10,6))
 sns.scatterplot(data=df, x="Denominator", y="Score", hue="Compared to National", alpha=0.7, palette="Set1")
 plt.title("Relación entre Score y Denominator, categorizado por desempeño")
